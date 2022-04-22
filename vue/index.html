@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+  </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          attr : "alt",
+          img: "https://i.ytimg.com/vi/In1UrELqqEo/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLByBv40vDOUJKRXa75lZsW_PlzbeQ",
+          counter:0,
+          env: "submit",
+          count:5,
+          env_reto:'click', 
+          text: 'Hola Vue'
+        }
+      },
+      methods:{
+        //Aquí se definen todas los métodos (funciones) a utilizar
+
+        increment(){
+          this.counter += 1
+        },
+        submit(e){
+          this.counter++
+        },
+        aumentar(){
+          this.count +=1
+        },
+        disminuir(){
+          this.count -=1
+        },
+        input(e){
+
+        }
+      },
+      template: ` 
+      <img v-bind:[attr]="img" v-bind:alt="img"> 
+      
+      <br>
+      <br>
+      <br>
+      
+      <button v-on:click="increment">
+        {{counter}}
+      </button> 
+
+      <br>
+      <br>
+      <br>
+      <h2>Reto {{ count }} </h2>
+      <button v-on:[env_reto]="aumentar">Aumentar</button>
+      <button v-on:[env_reto]="disminuir">Disminuir</button>
+      <br>
+      <br>
+      <br>
+
+      <form v-on:[env].prevent="submit">
+        <button >
+          {{counter}}
+        </button> 
+      </form>
+
+      <br>
+      <br>
+      <br>
+      <p>{{ text }}</p>
+      <input type="text" v-on:change="input">
+      `
+    }).mount("#app")
+    console.log(vm)
+  </script>
+</body>
+</html>
