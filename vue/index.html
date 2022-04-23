@@ -21,7 +21,11 @@
           env: "submit",
           count:5,
           env_reto:'click', 
-          text: 'Hola Vue'
+          text: 'Puerta cerrada',
+          firstName: 'Jose',
+          lastName: 'Morales',
+          now: new Date(),
+          open: false
         }
       },
       methods:{
@@ -40,10 +44,40 @@
           this.count -=1
         },
         input(e){
-
+          this.text = e.target.value
+        }
+      },
+      computed:{
+        fullName(){
+          return this.firstName + ' ' + this.lastName
+        },
+        today(){
+          return this.now.toLocaleDateString()
+        },
+        label(){
+          return this.open ? "Cerrar" : "Abrir"
+        }
+      },
+      watch:{
+        open(value){
+          if(value){
+            this.text = 'Puerta abierta'
+          } else{
+            this.text = 'Puerta cerrada'
+          }
         }
       },
       template: ` 
+      <div>
+        <p>{{ today }}</p>
+        <p>
+          {{ fullName }}
+        </p>
+      </div>
+      <br>
+      <br>
+      <br>
+      
       <img v-bind:[attr]="img" v-bind:alt="img"> 
       
       <br>
@@ -74,7 +108,12 @@
       <br>
       <br>
       <p>{{ text }}</p>
-      <input type="text" v-on:change="input">
+      <input 
+        type="text" 
+        v-model="text">
+      <button @click="open = !open">
+        {{ label }}
+      </button>
       `
     }).mount("#app")
     console.log(vm)
