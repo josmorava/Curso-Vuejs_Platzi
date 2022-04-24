@@ -26,6 +26,7 @@
           lastName: 'Morales',
           now: new Date(),
           open: false,
+          username: "",
         }
       },
       methods:{
@@ -69,6 +70,7 @@
           } else{
             this.text = 'Puerta cerrada'
             //this.styles.backgroundColor="red"
+            this.username= ""
           }
         }
       },
@@ -113,13 +115,22 @@
       <br>
       <br>
       <h2 class="text" :class="styles">
-        {{ text }}
+        {{text}}
       </h2>
-      <input 
-        type="text" 
-        v-model="text">
+      <input type="text" v-model="text">
+
+
+      <div v-if="open">
+        <p>Hola, {{username}}</p>
+      </div>
+      <div v-else>
+        <label>Username</label>
+        <input type="text" v-model="username">
+      </div>
+
       <button @click="open = !open">
-        {{ label }}
+        <p v-if="!open">Abrir</p>
+        <p v-else>Cerrar</p>
       </button>
       `
     }).mount("#app")
