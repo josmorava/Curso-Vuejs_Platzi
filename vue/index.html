@@ -25,7 +25,7 @@
           firstName: 'Jose',
           lastName: 'Morales',
           now: new Date(),
-          open: false
+          open: false,
         }
       },
       methods:{
@@ -55,15 +55,20 @@
           return this.now.toLocaleDateString()
         },
         label(){
-          return this.open ? "Cerrar" : "Abrir"
+          return this.open ? "Cerrar Puerta" : "Abrir Puerta"
+        },
+        styles(){
+          return this.open ? ['open'] : ['close']
         }
       },
       watch:{
         open(value){
           if(value){
             this.text = 'Puerta abierta'
+            //this.styles.backgroundColor="green" 
           } else{
             this.text = 'Puerta cerrada'
+            //this.styles.backgroundColor="red"
           }
         }
       },
@@ -107,7 +112,9 @@
       <br>
       <br>
       <br>
-      <p>{{ text }}</p>
+      <h2 class="text" :class="styles">
+        {{ text }}
+      </h2>
       <input 
         type="text" 
         v-model="text">
@@ -118,5 +125,21 @@
     }).mount("#app")
     console.log(vm)
   </script>
+  <style>
+    .text{
+      color: white;
+      border-radius:5px;
+      margin-left:20px;
+      padding:10px;
+      width: 200px;
+      text-align: center;
+    }
+    .open{
+      background-color:#00b894;
+    }
+    .close{
+      background-color:#d63031; 
+    }
+  </style>
 </body>
 </html>
