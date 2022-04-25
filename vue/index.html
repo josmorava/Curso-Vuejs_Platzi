@@ -27,6 +27,18 @@
           now: new Date(),
           open: false,
           username: "",
+          posts:[{
+            title: "Titulo 1",
+            description: "Bla bla bla..."
+          },
+          {
+            title: "Titulo 2",
+            description: "Bla bla bla..."
+          },
+          {
+            title: "Titulo 3",
+            description: "Bla bla bla..."
+          }]
         }
       },
       methods:{
@@ -65,10 +77,10 @@
       watch:{
         open(value){
           if(value){
-            this.text = 'Puerta abierta'
+            this.text = 'Sesión abierta'
             //this.styles.backgroundColor="green" 
           } else{
-            this.text = 'Puerta cerrada'
+            this.text = 'Sesion cerrada'
             //this.styles.backgroundColor="red"
             this.username= ""
           }
@@ -83,11 +95,11 @@
       </div>
       <br>
       <br>
+      <input type="text" v-model="text">
       <br>
       
       <img v-bind:[attr]="img" v-bind:alt="img"> 
       
-      <br>
       <br>
       <br>
       
@@ -97,11 +109,9 @@
 
       <br>
       <br>
-      <br>
-      <h2>Reto {{ count }} </h2>
+      <h3>Reto {{ count }} </h3>
       <button v-on:[env_reto]="aumentar">Aumentar</button>
       <button v-on:[env_reto]="disminuir">Disminuir</button>
-      <br>
       <br>
       <br>
 
@@ -112,44 +122,73 @@
       </form>
 
       <br>
-      <br>
-      <br>
-      <h2 class="text" :class="styles">
-        {{text}}
-      </h2>
-      <input type="text" v-model="text">
-
-
-      <div v-if="open">
-        <p>Hola, {{username}}</p>
+      <div class="head">
+        <h2 class="text" :class="styles">
+          {{text}}
+        </h2>
+        <button @click="open = !open">
+          <p v-if="!open">Entrar</p>
+          <p v-else>Salir</p>
+        </button>
       </div>
-      <div v-else>
+
+      <div v-if="open" class="head-content">
+        <p>Hola, {{username}}</p>
+        <div class="list">
+          <div v-for="(item, i) in posts" :key="i" class="item">
+            <h3 class="title">{{item.title}}</h3
+            <p class="content">{{item.description}}</p>
+          </div>
+        </div>
+
+      </div>
+      <div v-else class="head">
         <label>Username</label>
         <input type="text" v-model="username">
       </div>
 
-      <button @click="open = !open">
-        <p v-if="!open">Abrir</p>
-        <p v-else>Cerrar</p>
-      </button>
+     
       `
     }).mount("#app")
     console.log(vm)
   </script>
   <style>
+    .head{
+      display:flex;
+      justify-content: center;
+      align-items:center;
+    }
     .text{
       color: white;
       border-radius:5px;
-      margin-left:20px;
       padding:10px;
       width: 200px;
       text-align: center;
+      margin-right:20px;
     }
     .open{
       background-color:#00b894;
     }
     .close{
       background-color:#d63031; 
+    }
+    .head-content{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+    }
+    .list{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+    }
+    .item{
+      width:300px;
+      border-radius:10px;
+      background-color:#dfe6e9;
+      margin-top:10px;
     }
   </style>
 </body>
