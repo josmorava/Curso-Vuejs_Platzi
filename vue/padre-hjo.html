@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slots</title>
+  <title>Padre>hijo</title>
 </head>
 <body>
 
@@ -14,33 +14,36 @@
 
 <script>
   const app = Vue.createApp({
+    data(){
+      return{
+        items:[
+        "uno",
+        "dos",
+        "tres"
+        ]
+      }
+    },
     template:`
       <div>
-        <v-layout> 
-          <template v-slot:header>
-            <button>
-              Title
-            </button>
-          </template>
-
-          <template v-slot:content>
-            Contenido
-          </template>
-        </v-layout>
-        
-        
+        <ul>
+          <v-item 
+            v-for="item in items"
+            v-bind:text="item"
+          >
+          </v-item>
+        </ul>
       </div>
     `
   })
 
-  app.component("v-layout",{
+  app.component("v-item",{
+    props:{
+      text: String
+    },
     template:`
-    <header>
-      <slot name="header"></slot>
-    </header>
-    <content>
-      <slot name="content"></slot>
-    </content>
+    <li>
+      {{text}}
+    </li>
     `
   })
 
