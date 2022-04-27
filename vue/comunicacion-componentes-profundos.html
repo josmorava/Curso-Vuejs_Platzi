@@ -45,7 +45,13 @@
   })
 
   app.component("tercer",{
-    inject:['otroTexto', 'texto'],
+    inject:{
+      otroTexto:{
+        from : 'otroTexto'
+      },
+      texto:{
+        from: 'texto'
+      }},
     template:`
     <div>
       <p>{{ otroTexto }}</p>
